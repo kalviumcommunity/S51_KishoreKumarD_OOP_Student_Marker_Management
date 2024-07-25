@@ -45,9 +45,9 @@ The Student Marker Management System (SMMS) is a Java-based application designed
 ## Usage
 
 1. **Clone the Repository**
-
-         git clone https://github.com/yourusername/student-marker-management-system.git
-         cd student-marker-management-system
+      
+       git clone https://github.com/yourusername/student-marker-management-system.git
+       cd student-marker-management-system
 
 2. **Compile the Code**
 
