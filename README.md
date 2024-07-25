@@ -57,8 +57,6 @@ The Student Marker Management System (SMMS) is a Java-based application designed
    
        java Main
 
-
-## License 
+## License
 
     This project is licensed under the MIT License. See the LICENSE file for details.
-
