@@ -36,10 +36,16 @@ The Student Marker Management System (SMMS) is a Java-based application designed
 4. **ProfessionalismMarker (Subclass of Marker)**
    - Represents Professionalism performance marker.
 
-5. **Report**
+5. **CodingMarker (Subclass of Marker)**
+   - Represents Coding perfromance marker.
+
+6. **ProjectMarker (Subclass of Marker)**
+   - Represents Project perfromance marker.
+
+7. **Report**
    - Generates and displays student performance reports.
 
-6. **Main**
+8. **Main**
    - Main class to run the application and test the functionality.
 
 ## Usage
