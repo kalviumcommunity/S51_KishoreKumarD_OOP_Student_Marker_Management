@@ -175,7 +175,9 @@ public class Main {
         stud3.addMarker(professionalismMarker);
         stud3.addMarker(caScoresMarker);
         stud3.addMarker(dojoMarker);
-        // stud1.displayStudentInfo();
+
+        // Delete keyword is not needed to be used, becuase Java takes care of the memory management during
+        // run-time with the help of it's Garabage collector. 
 
         Student[] students = {stud1, stud2, stud3};
 
