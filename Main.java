@@ -155,6 +155,7 @@ public class Main {
     public static void main(String[] args) {
         Student stud1 = new Student("1", "John");
         Student stud2 = new Student("2", "Jane");
+        Student stud3 = new Student("3","Joe");
 
         Marker professionalismMarker = new ProfessionalismMarker("Professionalism", 85);
         Marker caScoresMarker = new Marker("CA scores", 90);
@@ -171,10 +172,13 @@ public class Main {
         stud2.addMarker(professionalismMarker);
         stud2.addMarker(projectSkillsMarker);
 
-        // Create an array of Student objects
-        Student[] students = {stud1, stud2};
+        stud3.addMarker(professionalismMarker);
+        stud3.addMarker(caScoresMarker);
+        stud3.addMarker(dojoMarker);
+        // stud1.displayStudentInfo();
 
-        // Display information for all students in the array
+        Student[] students = {stud1, stud2, stud3};
+
         for (Student student : students) {
             student.displayStudentInfo();
             System.out.print(" ");
