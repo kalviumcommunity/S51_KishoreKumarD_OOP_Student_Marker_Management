@@ -36,12 +36,12 @@ class Student {
         this.markers.put(marker.getMarkerName(), marker);
     }
 
-    // public static int getTotalStudents() {
-    //     return countOfStudent;
-    // }
+    public static int getTotalStudents() {
+        return countOfStudent;
+    }
 
     void displayStudentInfo() {
-        System.out.println("Student Count: " + countOfStudent);
+        // System.out.println("Student Count: " + countOfStudent);
         System.out.println("Student ID: " + this.studentId);
         System.out.println("Student Name: " + this.studentName);
         System.out.println("Markers: ");
@@ -80,18 +80,17 @@ class Marker {
         return this.score;
     }
 
-    // public static int getTotalMarkers() {
-    //     return totalMarkers;
-    // }
+    public static int getTotalMarkers() {
+        return totalMarkers;
+    }
 
     public void displayMarkerInfo() {
-        System.out.println("Total Markers: " + totalMarkers);
+        // System.out.println("Total Markers: " + totalMarkers);
         System.out.println("Marker Name: " + this.markerName);
         System.out.println("Marker Score: " + this.score);
     }
 }
 
-// Subclasses of Marker
 class DojoMarker extends Marker {
     public DojoMarker(String markerName, int score) {
         super(markerName, score);
@@ -121,6 +120,8 @@ public class Main {
         Student stud1 = new Student("1", "John");
         Student stud2 = new Student("2", "Jane");
         Student stud3 = new Student("3", "Joe");
+        Student stud4 = new Student("4", "You");
+        Student stud5 = new Student("5", "Me");
 
         Marker professionalismMarker = new ProfessionalismMarker("Professionalism", 85);
         Marker caScoresMarker = new Marker("CA Scores", 90);
@@ -141,15 +142,17 @@ public class Main {
         stud3.addMarker(caScoresMarker);
         stud3.addMarker(dojoMarker);
 
-        Student[] students = {stud1, stud2, stud3};
+        stud4.addMarker(professionalismMarker);
+
+        Student[] students = {stud1, stud2, stud3, stud4, stud5};
 
         for (Student student : students) {
             student.displayStudentInfo();
             System.out.println();
         }
 
-        // System.out.println("Total Number of Markers: " + Marker.getTotalMarkers());
+        System.out.println("Total Number of Markers: " + Marker.getTotalMarkers());
 
-        // System.out.println("Total Number of Students: " + Student.getTotalStudents());
+        System.out.println("Total Number of Students: " + Student.getTotalStudents());
     }
 }
