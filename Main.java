@@ -47,6 +47,7 @@ abstract class BaseStudent {
         System.out.println("Markers: ");
         for (Marker marker : markers.values()) {
             marker.displayMarkerInfo();
+            System.out.println(marker.describeMarker()); 
         }
     }
 }
@@ -68,10 +69,16 @@ class Marker {
     private int score;
     private static int totalMarkers = 0;
 
+    // Constructor with both name and score
     public Marker(String markerName, int score) {
         this.markerName = markerName;
         this.score = score;
         totalMarkers++;
+    }
+
+    // Overloaded constructor with a default score
+    public Marker(String markerName) {
+        this(markerName, 50); // Default score is set to 50
     }
 
     public void setMarkerName(String markerName) {
@@ -98,11 +105,21 @@ class Marker {
         System.out.println("Marker Name: " + this.markerName);
         System.out.println("Marker Score: " + this.score);
     }
+
+    // Method to describe the marker (to be overridden)
+    public String describeMarker() {
+        return "This is a generic marker.";
+    }
 }
 
 class DojoMarker extends Marker {
     public DojoMarker(String markerName, int score) {
         super(markerName, score);
+    }
+
+    @Override
+    public String describeMarker() {
+        return "This marker evaluates dojo performance.";
     }
 }
 
@@ -110,17 +127,32 @@ class ProfessionalismMarker extends Marker {
     public ProfessionalismMarker(String markerName, int score) {
         super(markerName, score);
     }
+
+    @Override
+    public String describeMarker() {
+        return "This marker assesses professionalism.";
+    }
 }
 
 class CodingMarker extends Marker {
     public CodingMarker(String markerName, int score) {
         super(markerName, score);
     }
+
+    @Override
+    public String describeMarker() {
+        return "This marker evaluates coding skills.";
+    }
 }
 
 class ProjectMarker extends Marker {
     public ProjectMarker(String markerName, int score) {
         super(markerName, score);
+    }
+
+    @Override
+    public String describeMarker() {
+        return "This marker assesses project skills.";
     }
 }
 
@@ -133,12 +165,15 @@ public class Main {
         GraduateStudent stud4 = new GraduateStudent("4", "Anna");
         UndergraduateStudent stud5 = new UndergraduateStudent("5", "Me");
 
-        // Create markers
+        // Create markers using the overloaded constructor
         Marker professionalismMarker = new ProfessionalismMarker("Professionalism", 85);
         Marker caScoresMarker = new Marker("CA Scores", 90);
         DojoMarker dojoMarker = new DojoMarker("Dojo Performance", 75);
         CodingMarker codingSkillsMarker = new CodingMarker("Coding Skills", 95);
         ProjectMarker projectSkillsMarker = new ProjectMarker("Project Skills", 88);
+        
+        // Using the overloaded constructor for a default score
+        Marker defaultMarker = new Marker("Default Marker");
 
         // Add markers to students
         stud1.addMarker(professionalismMarker);
@@ -146,6 +181,7 @@ public class Main {
         stud1.addMarker(dojoMarker);
         stud1.addMarker(codingSkillsMarker);
         stud1.addMarker(projectSkillsMarker);
+        stud1.addMarker(defaultMarker); // Adding the default marker
 
         stud2.addMarker(professionalismMarker);
         stud2.addMarker(projectSkillsMarker);
