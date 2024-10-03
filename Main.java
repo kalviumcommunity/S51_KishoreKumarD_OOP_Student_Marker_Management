@@ -3,21 +3,20 @@ package S51_KishoreKumarD_OOP_Student_Marker_Management;
 import java.util.HashMap;
 import java.util.Map;
 
-class Student {
-    private String studentId;
-    private String studentName;
-    private Map<String, Marker> markers;
-    private static int countOfStudent = 0;
+abstract class BaseStudent {
+    protected String studentId;
+    protected String studentName;
+    protected Map<String, Marker> markers;
+    protected static int countOfStudent = 0;
 
     // Constructor to initialize student details
-    public Student(String studentId, String studentName) {
+    public BaseStudent(String studentId, String studentName) {
         this.studentId = studentId;
         this.studentName = studentName;
-        this.markers = new HashMap<>(); // Initialize the markers map
-        countOfStudent++; // Increment the student count when a new student is created
+        this.markers = new HashMap<>();
+        countOfStudent++;
     }
 
-    // Getter and Setter methods for studentId and studentName
     void setStudentId(String studentId) {
         this.studentId = studentId;
     }
@@ -34,24 +33,33 @@ class Student {
         return this.studentName;
     }
 
-    // Method to add markers to the student
     void addMarker(Marker marker) {
         this.markers.put(marker.getMarkerName(), marker);
     }
 
-    // Method to return the total number of students created
     public static int getTotalStudents() {
         return countOfStudent;
     }
 
-    // Method to display student info along with their markers
     void displayStudentInfo() {
         System.out.println("Student ID: " + this.studentId);
         System.out.println("Student Name: " + this.studentName);
         System.out.println("Markers: ");
         for (Marker marker : markers.values()) {
-            marker.displayMarkerInfo(); // Display each marker's info
+            marker.displayMarkerInfo();
         }
+    }
+}
+
+class UndergraduateStudent extends BaseStudent {
+    public UndergraduateStudent(String studentId, String studentName) {
+        super(studentId, studentName);
+    }
+}
+
+class GraduateStudent extends BaseStudent {
+    public GraduateStudent(String studentId, String studentName) {
+        super(studentId, studentName);
     }
 }
 
@@ -60,14 +68,12 @@ class Marker {
     private int score;
     private static int totalMarkers = 0;
 
-    // Constructor to initialize marker details
     public Marker(String markerName, int score) {
         this.markerName = markerName;
         this.score = score;
-        totalMarkers++; // Increment the marker count when a new marker is created
+        totalMarkers++;
     }
 
-    // Getter and Setter methods for markerName and score
     public void setMarkerName(String markerName) {
         this.markerName = markerName;
     }
@@ -84,19 +90,16 @@ class Marker {
         return this.score;
     }
 
-    // Method to return the total number of markers created
     public static int getTotalMarkers() {
         return totalMarkers;
     }
 
-    // Method to display marker information
     public void displayMarkerInfo() {
         System.out.println("Marker Name: " + this.markerName);
         System.out.println("Marker Score: " + this.score);
     }
 }
 
-// Different types of Markers, inheriting from Marker class
 class DojoMarker extends Marker {
     public DojoMarker(String markerName, int score) {
         super(markerName, score);
@@ -124,11 +127,11 @@ class ProjectMarker extends Marker {
 public class Main {
     public static void main(String[] args) {
         // Create students
-        Student stud1 = new Student("1", "John");
-        Student stud2 = new Student("2", "You");
-        Student stud3 = new Student("3", "Joe");
-        Student stud4 = new Student("4", "Anna");
-        Student stud5 = new Student("5", "Me");
+        UndergraduateStudent stud1 = new UndergraduateStudent("1", "John");
+        GraduateStudent stud2 = new GraduateStudent("2", "You");
+        UndergraduateStudent stud3 = new UndergraduateStudent("3", "Joe");
+        GraduateStudent stud4 = new GraduateStudent("4", "Anna");
+        UndergraduateStudent stud5 = new UndergraduateStudent("5", "Me");
 
         // Create markers
         Marker professionalismMarker = new ProfessionalismMarker("Professionalism", 85);
@@ -154,16 +157,16 @@ public class Main {
         stud4.addMarker(professionalismMarker);
 
         // Store students in an array
-        Student[] students = {stud1, stud2, stud3, stud4, stud5};
+        BaseStudent[] students = {stud1, stud2, stud3, stud4, stud5};
 
         // Display each student's info
-        for (Student student : students) {
+        for (BaseStudent student : students) {
             student.displayStudentInfo();
             System.out.println();
         }
 
         // Display total markers and students
         System.out.println("Total Number of Markers: " + Marker.getTotalMarkers());
-        System.out.println("Total Number of Students: " + Student.getTotalStudents());
+        System.out.println("Total Number of Students: " + BaseStudent.getTotalStudents());
     }
 }
