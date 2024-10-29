@@ -3,17 +3,39 @@ package S51_KishoreKumarD_OOP_Student_Marker_Management;
 import java.util.HashMap;
 import java.util.Map;
 
+class MarkerManager {
+    private Map<String, Marker> markers;
+
+    public MarkerManager() {
+        this.markers = new HashMap<>();
+    }
+
+    void addMarker(Marker marker) {
+        this.markers.put(marker.getMarkerName(), marker);
+    }
+
+    void displayMarkers() {
+        for (Marker marker : markers.values()) {
+            marker.displayMarkerInfo();
+            System.out.println(marker.describeMarker());
+        }
+    }
+
+    int getTotalMarkers() {
+        return markers.size();
+    }
+}
+
 abstract class BaseStudent {
     protected String studentId;
     protected String studentName;
-    protected Map<String, Marker> markers;
+    protected MarkerManager markerManager;
     protected static int countOfStudent = 0;
 
-    // Constructor to initialize student details
     public BaseStudent(String studentId, String studentName) {
         this.studentId = studentId;
         this.studentName = studentName;
-        this.markers = new HashMap<>();
+        this.markerManager = new MarkerManager();
         countOfStudent++;
     }
 
@@ -34,7 +56,7 @@ abstract class BaseStudent {
     }
 
     void addMarker(Marker marker) {
-        this.markers.put(marker.getMarkerName(), marker);
+        this.markerManager.addMarker(marker);
     }
 
     public static int getTotalStudents() {
@@ -45,10 +67,7 @@ abstract class BaseStudent {
         System.out.println("Student ID: " + this.studentId);
         System.out.println("Student Name: " + this.studentName);
         System.out.println("Markers: ");
-        for (Marker marker : markers.values()) {
-            marker.displayMarkerInfo();
-            System.out.println(marker.describeMarker()); 
-        }
+        this.markerManager.displayMarkers();
     }
 }
 
@@ -69,16 +88,14 @@ class Marker {
     private int score;
     private static int totalMarkers = 0;
 
-    // Constructor with both name and score
     public Marker(String markerName, int score) {
         this.markerName = markerName;
         this.score = score;
         totalMarkers++;
     }
 
-    // Overloaded constructor with a default score
     public Marker(String markerName) {
-        this(markerName, 50); // Default score is set to 50
+        this(markerName, 50);
     }
 
     public void setMarkerName(String markerName) {
@@ -106,7 +123,6 @@ class Marker {
         System.out.println("Marker Score: " + this.score);
     }
 
-    // Method to describe the marker (to be overridden)
     public String describeMarker() {
         return "This is a generic marker.";
     }
@@ -158,30 +174,25 @@ class ProjectMarker extends Marker {
 
 public class Main {
     public static void main(String[] args) {
-        // Create students
         UndergraduateStudent stud1 = new UndergraduateStudent("1", "John");
         GraduateStudent stud2 = new GraduateStudent("2", "You");
         UndergraduateStudent stud3 = new UndergraduateStudent("3", "Joe");
         GraduateStudent stud4 = new GraduateStudent("4", "Anna");
         UndergraduateStudent stud5 = new UndergraduateStudent("5", "Me");
 
-        // Create markers using the overloaded constructor
         Marker professionalismMarker = new ProfessionalismMarker("Professionalism", 85);
         Marker caScoresMarker = new Marker("CA Scores", 90);
         DojoMarker dojoMarker = new DojoMarker("Dojo Performance", 75);
         CodingMarker codingSkillsMarker = new CodingMarker("Coding Skills", 95);
         ProjectMarker projectSkillsMarker = new ProjectMarker("Project Skills", 88);
-        
-        // Using the overloaded constructor for a default score
         Marker defaultMarker = new Marker("Default Marker");
 
-        // Add markers to students
         stud1.addMarker(professionalismMarker);
         stud1.addMarker(caScoresMarker);
         stud1.addMarker(dojoMarker);
         stud1.addMarker(codingSkillsMarker);
         stud1.addMarker(projectSkillsMarker);
-        stud1.addMarker(defaultMarker); // Adding the default marker
+        stud1.addMarker(defaultMarker);
 
         stud2.addMarker(professionalismMarker);
         stud2.addMarker(projectSkillsMarker);
@@ -192,16 +203,13 @@ public class Main {
 
         stud4.addMarker(professionalismMarker);
 
-        // Store students in an array
         BaseStudent[] students = {stud1, stud2, stud3, stud4, stud5};
 
-        // Display each student's info
         for (BaseStudent student : students) {
             student.displayStudentInfo();
             System.out.println();
         }
 
-        // Display total markers and students
         System.out.println("Total Number of Markers: " + Marker.getTotalMarkers());
         System.out.println("Total Number of Students: " + BaseStudent.getTotalStudents());
     }
