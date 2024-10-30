@@ -63,9 +63,14 @@ abstract class BaseStudent {
         return countOfStudent;
     }
 
+    // SRP: Separating student display logic from marker display logic
     void displayStudentInfo() {
         System.out.println("Student ID: " + this.studentId);
         System.out.println("Student Name: " + this.studentName);
+    }
+
+    // SRP: Displaying markers as a separate method for Single Responsibility
+    void displayMarkers() {
         System.out.println("Markers: ");
         this.markerManager.displayMarkers();
     }
@@ -207,6 +212,7 @@ public class Main {
 
         for (BaseStudent student : students) {
             student.displayStudentInfo();
+            student.displayMarkers(); // Separate marker display for SRP compliance
             System.out.println();
         }
 
