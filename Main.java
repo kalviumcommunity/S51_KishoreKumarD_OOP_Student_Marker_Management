@@ -3,19 +3,27 @@ package S51_KishoreKumarD_OOP_Student_Marker_Management;
 import java.util.HashMap;
 import java.util.Map;
 
+
+interface IMarker {
+    String getMarkerName();
+    int getScore();
+    void displayMarkerInfo();
+    String describeMarker();
+}
+
 class MarkerManager {
-    private Map<String, Marker> markers;
+    private Map<String, IMarker> markers;
 
     public MarkerManager() {
         this.markers = new HashMap<>();
     }
 
-    void addMarker(Marker marker) {
+    void addMarker(IMarker marker) {
         this.markers.put(marker.getMarkerName(), marker);
     }
 
     void displayMarkers() {
-        for (Marker marker : markers.values()) {
+        for (IMarker marker : markers.values()) {
             marker.displayMarkerInfo();
             System.out.println(marker.describeMarker());
         }
@@ -55,7 +63,7 @@ abstract class BaseStudent {
         return this.studentName;
     }
 
-    void addMarker(Marker marker) {
+    void addMarker(IMarker marker) { // DIP: Using IMarker abstraction instead of Marker directly
         this.markerManager.addMarker(marker);
     }
 
@@ -63,13 +71,11 @@ abstract class BaseStudent {
         return countOfStudent;
     }
 
-    // SRP: Separating student display logic from marker display logic
     void displayStudentInfo() {
         System.out.println("Student ID: " + this.studentId);
         System.out.println("Student Name: " + this.studentName);
     }
 
-    // SRP: Displaying markers as a separate method for Single Responsibility
     void displayMarkers() {
         System.out.println("Markers: ");
         this.markerManager.displayMarkers();
@@ -88,7 +94,7 @@ class GraduateStudent extends BaseStudent {
     }
 }
 
-class Marker {
+class Marker implements IMarker {
     private String markerName;
     private int score;
     private static int totalMarkers = 0;
@@ -185,12 +191,12 @@ public class Main {
         GraduateStudent stud4 = new GraduateStudent("4", "Anna");
         UndergraduateStudent stud5 = new UndergraduateStudent("5", "Me");
 
-        Marker professionalismMarker = new ProfessionalismMarker("Professionalism", 85);
-        Marker caScoresMarker = new Marker("CA Scores", 90);
-        DojoMarker dojoMarker = new DojoMarker("Dojo Performance", 75);
-        CodingMarker codingSkillsMarker = new CodingMarker("Coding Skills", 95);
-        ProjectMarker projectSkillsMarker = new ProjectMarker("Project Skills", 88);
-        Marker defaultMarker = new Marker("Default Marker");
+        IMarker professionalismMarker = new ProfessionalismMarker("Professionalism", 85);
+        IMarker caScoresMarker = new Marker("CA Scores", 90);
+        IMarker dojoMarker = new DojoMarker("Dojo Performance", 75);
+        IMarker codingSkillsMarker = new CodingMarker("Coding Skills", 95);
+        IMarker projectSkillsMarker = new ProjectMarker("Project Skills", 88);
+        IMarker defaultMarker = new Marker("Default Marker");
 
         stud1.addMarker(professionalismMarker);
         stud1.addMarker(caScoresMarker);
@@ -212,7 +218,7 @@ public class Main {
 
         for (BaseStudent student : students) {
             student.displayStudentInfo();
-            student.displayMarkers(); // Separate marker display for SRP compliance
+            student.displayMarkers();
             System.out.println();
         }
 
